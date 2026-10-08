@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "IndigoLearn ACCA"
+description = "A responsive ACCA education landing page for prospective students, featuring course information, eligibility guidance, placement support, and an interactive callback confirmation modal."
+version = "1.0.0"
+id = "artifacts/acca-landing"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18681
+
+[services.development]
+run = "pnpm --filter @workspace/acca-landing run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/acca-landing", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/acca-landing/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18681"
+BASE_PATH = "/"
